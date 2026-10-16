@@ -1,0 +1,51 @@
+import java.util.*;
+import java.io.*;
+
+class Question {
+    String text, answer;
+
+    Question(String text, String answer) {
+        this.text = text;
+        this.answer = answer;
+    }
+}
+
+public class AdaptiveQuizEngine {
+
+    static int score = 0;
+
+    static void ask(String q, String ans, Scanner sc) {
+        System.out.println(q);
+        String a = sc.nextLine();
+
+        if (a.equals(ans)) {
+            System.out.println("Correct! Harder question next.");
+            score++;
+        } else {
+            System.out.println("Wrong! Easier question next.");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Adaptive Quiz Engine");
+
+        ask("1. 2 + 2 = ?", "4", sc);
+        ask("2. 5 * 5 = ?", "25", sc);
+        ask("3. Capital of India?", "Delhi", sc);
+
+        System.out.println("Score: " + score);
+
+        try {
+            FileWriter f = new FileWriter("result.txt");
+            f.write("Score: " + score);
+            f.close();
+        } catch (Exception e) {
+            System.out.println("File error");
+        }
+
+        sc.close();
+    }
+}
